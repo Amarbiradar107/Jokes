@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: jokesproject
+    env: python
+    plan: free
+    buildCommand: pip install -r requirements.txt && python JokesProject/manage.py migrate && python JokesProject/manage.py collectstatic --no-input
+    startCommand: gunicorn JokesProject.wsgi:application
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.9
+
