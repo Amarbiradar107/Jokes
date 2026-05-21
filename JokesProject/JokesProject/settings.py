@@ -28,10 +28,15 @@ SECRET_KEY = config('SECRET_KEY', default='django-insecure-i*(1!0%c1p1vs0!8+5h2f
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', default=False, cast=bool)
 
+def parse_allowed_hosts(value):
+    hosts = [s.strip() for s in value.split(',') if s.strip()]
+    return hosts if hosts else ['localhost', '127.0.0.1', '.onrender.com']
+
+
 ALLOWED_HOSTS = config(
     'ALLOWED_HOSTS',
     default='localhost,127.0.0.1,.onrender.com',
-    cast=lambda v: [s.strip() for s in v.split(',')],
+    cast=parse_allowed_hosts,
 )
 
 
