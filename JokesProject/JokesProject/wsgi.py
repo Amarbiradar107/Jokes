@@ -14,3 +14,9 @@ from django.core.wsgi import get_wsgi_application
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'JokesProject.settings')
 
 application = get_wsgi_application()
+try:
+	from django.conf import settings
+	print('STARTUP: ALLOWED_HOSTS =', getattr(settings, 'ALLOWED_HOSTS', None))
+except Exception:
+	# avoid crashing the WSGI startup if logging fails
+	pass
